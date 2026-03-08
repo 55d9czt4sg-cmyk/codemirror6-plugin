@@ -8,9 +8,9 @@ export default defineConfig(({ command }) => {
                 sourcemap: true,
                 minify: false,
                 lib: {
-                    entry: './src/plugin.ts',
+                    entry: './src/index.ts',
                     formats: ['es'],
-                    fileName: () => 'plugin.js'
+                    fileName: () => 'index.js'
                 },
                 rollupOptions: {
                     external: /^@(codemirror|lezer)\//,

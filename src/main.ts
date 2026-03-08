@@ -8,7 +8,7 @@ import {
     enterAbbreviationMode, balanceOutward, toggleComment, evaluateMath,
     goToNextEditPoint, goToPreviousEditPoint, goToTagPair, incrementNumber1, decrementNumber1,
     removeTag, selectNextItem, selectPreviousItem, splitJoinTag, wrapWithAbbreviation
-} from './plugin';
+} from './index';
 
 const text = `<html style="color: green">
   <!-- this is a comment -->

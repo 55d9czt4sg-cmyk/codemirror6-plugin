@@ -1,8 +1,8 @@
 {
   "name": "@emmetio/codemirror6-plugin",
   "version": "0.4.0",
-  "main": "./dist/plugin.js",
-  "types": "./dist/plugin.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "type": "module",
   "scripts": {
     "dev": "vite --port=3009",
