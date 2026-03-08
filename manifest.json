@@ -1,0 +1,16 @@
+{
+  "name": "Emmet for CodeMirror 6",
+  "short_name": "Emmet CM6",
+  "description": "CodeMirror 6 extension that adds Emmet support to text editor",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1a1a1a",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
+    }
+  ]
+}
