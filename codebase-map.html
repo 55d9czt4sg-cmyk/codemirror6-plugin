@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Codebase Map — codemirror6-plugin</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0d1117; color: #c9d1d9; min-height: 100vh; padding: 24px; }
+  h1 { font-size: 1.4rem; color: #58a6ff; margin-bottom: 4px; }
+  .subtitle { font-size: 0.85rem; color: #8b949e; margin-bottom: 20px; }
+  .stats { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; }
+  .stat { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 10px 16px; font-size: 0.82rem; }
+  .stat-val { font-size: 1.1rem; font-weight: 600; color: #79c0ff; display: block; }
+  .tree { background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 16px; font-size: 0.85rem; }
+  .node { list-style: none; }
+  .node-row { display: flex; align-items: center; gap: 6px; padding: 3px 6px; border-radius: 5px; cursor: default; user-select: none; }
+  .node-row:hover { background: #21262d; }
+  .dir > .node-row { cursor: pointer; }
+  .toggle { width: 14px; text-align: center; color: #8b949e; font-size: 0.75rem; flex-shrink: 0; }
+  .icon { flex-shrink: 0; }
+  .name { flex: 1; }
+  .size { font-size: 0.75rem; color: #8b949e; white-space: nowrap; }
+  .dir-size { font-size: 0.75rem; color: #6e7681; white-space: nowrap; }
+  .children { padding-left: 22px; }
+  .hidden { display: none; }
+
+  /* File type colors */
+  .ext-ts   { color: #3b82f6; }
+  .ext-js   { color: #f59e0b; }
+  .ext-json { color: #10b981; }
+  .ext-html { color: #f97316; }
+  .ext-css  { color: #a855f7; }
+  .ext-svg  { color: #ec4899; }
+  .ext-gif  { color: #ec4899; }
+  .ext-md   { color: #94a3b8; }
+  .ext-cfg  { color: #64748b; }
+  .dir-icon { color: #f59e0b; }
+</style>
+</head>
+<body>
+<h1>codemirror6-plugin</h1>
+<div class="subtitle">/home/user/codemirror6-plugin &nbsp;·&nbsp; Interactive codebase map</div>
+
+<div class="stats">
+  <div class="stat"><span class="stat-val">35</span>Total Files</div>
+  <div class="stat"><span class="stat-val">20</span>TypeScript Files</div>
+  <div class="stat"><span class="stat-val">~470 KB</span>Source Size</div>
+  <div class="stat"><span class="stat-val">4</span>Directories</div>
+</div>
+
+<div class="tree">
+<ul class="node">
+
+  <!-- Root -->
+  <li class="dir">
+    <div class="node-row" onclick="toggle(this)">
+      <span class="toggle">▼</span>
+      <span class="icon dir-icon">📁</span>
+      <span class="name"><strong>codemirror6-plugin</strong></span>
+      <span class="dir-size">~470 KB</span>
+    </div>
+    <ul class="children">
+
+      <!-- example/ -->
+      <li class="dir">
+        <div class="node-row" onclick="toggle(this)">
+          <span class="toggle">▼</span>
+          <span class="icon dir-icon">📁</span>
+          <span class="name">example/</span>
+          <span class="dir-size">330 KB</span>
+        </div>
+        <ul class="children">
+          <li class="node"><div class="node-row"><span class="toggle"></span><span class="icon">🖼</span><span class="name ext-gif">emmet-expand.gif</span><span class="size">330.2 KB</span></div></li>
+        </ul>
+      </li>
+
+      <!-- src/ -->
+      <li class="dir">
+        <div class="node-row" onclick="toggle(this)">
+          <span class="toggle">▼</span>
+          <span class="icon dir-icon">📁</span>
+          <span class="name">src/</span>
+          <span class="dir-size">83 KB</span>
+        </div>
+        <ul class="children">
+          <li class="node"><div class="node-row"><span class="toggle"></span><span class="icon">📄</span><span class="name ext-svg">completion-icon.svg</span><span class="size">791 B</span></div></li>
+          <li class="node"><div class="node-row"><span class="toggle"></span><span class="icon">📄</span><span class="name ext-ts">main.ts</span><span class="size">2.9 KB</span></div></li>
+          <li class="node"><div class="node-row"><span class="toggle"></span><span class="icon">📄</span><span class="name ext-ts">plugin.ts</span><span class="size">1.6 KB</span></div></li>
+          <li class="node"><div class="node-row"><span class="toggle"></span><span class="icon">📄</span><span class="name ext-ts">vite-env.d.ts</span><span class="size">38 B</span></div></li>
+
+          <!-- src/commands/ -->
+          <li class="dir">
+            <div class="node-row" onclick="toggle(this)">
+              <span class="toggle">▼</span>
+              <span class="icon dir-icon">📁</span>
+              <span class="name">commands/</span>
+              <span class="dir-size">39 KB</span>
+            </div>
+            <ul class="children">
+              <li class="node"><div class="node-row"><span class="toggle"></span><span class="icon">📄</span><span class="name ext-ts">balance.ts</span><span class="size">6.8 KB</span></div></li>
+              <li class="node"><div class="node-row"><span class="toggle"></span><span class="icon">📄</span><span class="name ext-ts">comment.ts</span><span class="size">3.9 KB</span></div></li>
+              <li class="node"><div class="node-row"><span class="toggle"></span><span class="icon">📄</span><span class="name ext-ts">evaluate-math.ts</span><span class="size">1.4 KB</span></div></li>
+              <li class="node"><div class="node-row"><span class="toggle"></span><span class="icon">📄</span><span class="name ext-ts">expand.ts</span><span class="size">983 B</span></div></li>
+              <li class="node"><div class="node-row"><span class="toggle"></span><span class="icon">📄</span><span class="name ext-ts">go-to-edit-point.ts</span><span class="size">1.9 KB</span></div></li>
+              <li class="node"><div class="node-row"><span class="toggle"></span><span class="icon">📄</span><span class="name ext-ts">go-to-tag-pair.ts</span><span class="size">1.1 KB</span></div></li>
+              <li class="node"><div class="node-row"><span class="toggle"></span><span class="icon">📄</span><span class="name ext-ts">inc-dec-number.ts</span><span class="size">3.5 KB</span></div></li>
+              <li class="node"><div class="node-row"><span class="toggle"></span><span class="icon">📄</span><span class="name ext-ts">remove-tag.ts</span><span class="size">2.7 KB</span></div></li>
+              <li class="node"><div class="node-row"><span class="toggle"></span><span class="icon">📄</span><span class="name ext-ts">select-item.ts</span><span class="size">7.4 KB</span></div></li>
+              <li class="node"><div class="node-row"><span class="toggle"></span><span class="icon">📄</span><span class="name ext-ts">split-join-tag.ts</span><span class="size">1.6 KB</span></div></li>
+              <li class="node"><div class="node-row"><span class="toggle"></span><span class="icon">📄</span><span class="name ext-ts">wrap-with-abbreviation.ts</span><span class="size">7.5 KB</span></div></li>
+            </ul>
+          </li>
+
+          <!-- src/lib/ -->
+          <li class="dir">
+            <div class="node-row" onclick="toggle(this)">
+              <span class="toggle">▼</span>
+              <span class="icon dir-icon">📁</span>
+              <span class="name">lib/</span>
+              <span class="dir-size">35 KB</span>
+            </div>
+            <ul class="children">
+              <li class="node"><div class="node-row"><span class="toggle"></span><span class="icon">📄</span><span class="name ext-ts">config.ts</span><span class="size">4.8 KB</span></div></li>
+              <li class="node"><div class="node-row"><span class="toggle"></span><span class="icon">📄</span><span class="name ext-ts">context.ts</span><span class="size">9.7 KB</span></div></li>
+              <li class="node"><div class="node-row"><span class="toggle"></span><span class="icon">📄</span><span class="name ext-ts">emmet.ts</span><span class="size">4.4 KB</span></div></li>
+              <li class="node"><div class="node-row"><span class="toggle"></span><span class="icon">📄</span><span class="name ext-ts">output.ts</span><span class="size">1.8 KB</span></div></li>
+              <li class="node"><div class="node-row"><span class="toggle"></span><span class="icon">📄</span><span class="name ext-ts">syntax.ts</span><span class="size">5.7 KB</span></div></li>
+              <li class="node"><div class="node-row"><span class="toggle"></span><span class="icon">📄</span><span class="name ext-ts">types.ts</span><span class="size">2.4 KB</span></div></li>
+              <li class="node"><div class="node-row"><span class="toggle"></span><span class="icon">📄</span><span class="name ext-ts">utils.ts</span><span class="size">5.0 KB</span></div></li>
+            </ul>
+          </li>
+
+          <!-- src/tracker/ -->
+          <li class="dir">
+            <div class="node-row" onclick="toggle(this)">
+              <span class="toggle">▼</span>
+              <span class="icon dir-icon">📁</span>
+              <span class="name">tracker/</span>
+              <span class="dir-size">26 KB</span>
+            </div>
+            <ul class="children">
+              <li class="node"><div class="node-row"><span class="toggle"></span><span class="icon">📄</span><span class="name ext-ts">AbbreviationPreviewWidget.ts</span><span class="size">1.6 KB</span></div></li>
+              <li class="node"><div class="node-row"><span class="toggle"></span><span class="icon">📄</span><span class="name ext-ts">index.ts</span><span class="size">24.5 KB</span></div></li>
+            </ul>
+          </li>
+
+        </ul>
+      </li>
+
+      <!-- Root files -->
+      <li class="node"><div class="node-row"><span class="toggle"></span><span class="icon">📄</span><span class="name ext-cfg">.editorconfig</span><span class="size">264 B</span></div></li>
+      <li class="node"><div class="node-row"><span class="toggle"></span><span class="icon">📄</span><span class="name ext-cfg">.gitignore</span><span class="size">594 B</span></div></li>
+      <li class="node"><div class="node-row"><span class="toggle"></span><span class="icon">📄</span><span class="name ext-cfg">.npmignore</span><span class="size">82 B</span></div></li>
+      <li class="node"><div class="node-row"><span class="toggle"></span><span class="icon">📄</span><span class="name ext-svg">favicon.svg</span><span class="size">1.5 KB</span></div></li>
+      <li class="node"><div class="node-row"><span class="toggle"></span><span class="icon">📄</span><span class="name ext-html">index.html</span><span class="size">375 B</span></div></li>
+      <li class="node"><div class="node-row"><span class="toggle"></span><span class="icon">📄</span><span class="name ext-json">package-lock.json</span><span class="size">35.3 KB</span></div></li>
+      <li class="node"><div class="node-row"><span class="toggle"></span><span class="icon">📄</span><span class="name ext-json">package.json</span><span class="size">815 B</span></div></li>
+      <li class="node"><div class="node-row"><span class="toggle"></span><span class="icon">📄</span><span class="name ext-md">README.md</span><span class="size">6.5 KB</span></div></li>
+      <li class="node"><div class="node-row"><span class="toggle"></span><span class="icon">📄</span><span class="name ext-json">tsconfig.json</span><span class="size">532 B</span></div></li>
+      <li class="node"><div class="node-row"><span class="toggle"></span><span class="icon">📄</span><span class="name ext-ts">vite.config.ts</span><span class="size">582 B</span></div></li>
+
+    </ul>
+  </li>
+</ul>
+</div>
+
+<script>
+function toggle(row) {
+  const li = row.parentElement;
+  const children = li.querySelector('.children');
+  const arrow = row.querySelector('.toggle');
+  if (!children) return;
+  const collapsed = children.classList.toggle('hidden');
+  arrow.textContent = collapsed ? '▶' : '▼';
+}
+</script>
+</body>
+</html>
