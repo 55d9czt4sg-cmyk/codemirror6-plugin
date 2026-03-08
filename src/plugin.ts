@@ -43,3 +43,14 @@ export { removeTag } from './commands/remove-tag';
 export { selectNextItem, selectPreviousItem } from './commands/select-item';
 export { splitJoinTag } from './commands/split-join-tag';
 export { wrapWithAbbreviation } from './commands/wrap-with-abbreviation';
+export {
+    greeting,
+    greetingState,
+    toggleGreetingEffect,
+    setGreetingTextEffect,
+    showGreeting,
+    hideGreeting,
+    toggleGreeting,
+    setGreeting,
+    type GreetingConfig,
+} from './greeting';

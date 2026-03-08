@@ -7,7 +7,8 @@ import {
     abbreviationTracker, expandAbbreviation,
     enterAbbreviationMode, balanceOutward, toggleComment, evaluateMath,
     goToNextEditPoint, goToPreviousEditPoint, goToTagPair, incrementNumber1, decrementNumber1,
-    removeTag, selectNextItem, selectPreviousItem, splitJoinTag, wrapWithAbbreviation
+    removeTag, selectNextItem, selectPreviousItem, splitJoinTag, wrapWithAbbreviation,
+    greeting, toggleGreeting, setGreeting,
 } from './plugin';
 
 const text = `<html style="color: green">
@@ -40,11 +41,14 @@ const text = `<html style="color: green">
   </body>
 </html>`;
 
-new EditorView({
+const view = new EditorView({
     doc: text,
     extensions: [
         basicSetup,
         html(),
+        // Greeting plugin – shows a dismissible banner at the top of the editor.
+        // Toggle it with Ctrl-Shift-G or call toggleGreeting(view) from JS.
+        greeting({ text: 'Hello, CodeMirror 6!  — press Ctrl-Shift-G to hide me', visible: true }),
         Prec.high(abbreviationTracker({
             autocompleteTab: ['stylesheet'],
             config: {
@@ -62,6 +66,9 @@ new EditorView({
         })),
         wrapWithAbbreviation(),
         keymap.of([{
+            key: 'Ctrl-Shift-g',
+            run: toggleGreeting
+        }, {
             key: 'Cmd-e',
             run: expandAbbreviation
         },{
@@ -107,3 +114,8 @@ new EditorView({
     ],
     parent: document.querySelector<HTMLDivElement>('#app')!
 });
+
+// Demonstrate the runtime API: update greeting text after 3 seconds
+setTimeout(() => {
+    setGreeting(view, 'Greeting updated at runtime via setGreeting()!');
+}, 3000);
