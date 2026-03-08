@@ -43,3 +43,10 @@ export { removeTag } from './commands/remove-tag';
 export { selectNextItem, selectPreviousItem } from './commands/select-item';
 export { splitJoinTag } from './commands/split-join-tag';
 export { wrapWithAbbreviation } from './commands/wrap-with-abbreviation';
+export {
+    compoundInterest,
+    projectileDistance,
+    sphereSurfaceAreaFromVolume,
+    populationStdDev,
+    calculatePH
+} from './lib/calculator';
