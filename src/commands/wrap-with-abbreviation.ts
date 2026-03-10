@@ -1,6 +1,6 @@
 import type { UserConfig } from 'emmet';
-import { EditorView, keymap, ViewPlugin } from '@codemirror/view';
-import type { ViewUpdate } from '@codemirror/view';
+import { EditorView, keymap, showPanel } from '@codemirror/view';
+import type { Panel, ViewUpdate } from '@codemirror/view';
 import { EditorState, StateEffect, StateField } from '@codemirror/state';
 import type { Extension, StateCommand, } from '@codemirror/state';
 import { undo } from '@codemirror/commands';
@@ -27,26 +27,15 @@ const wrapAbbreviationField = StateField.define<WrapAbbreviation | null>({
             }
         }
         return value;
-    }
+    },
+    provide: f => showPanel.from(f, abbr => abbr ? createWrapInputPanel : null)
 });
 
 const wrapTheme = EditorView.baseTheme({
-    '.emmet-wrap-with-abbreviation': {
-        position: 'absolute',
-        top: 0,
-        zIndex: 2,
-        width: '100%'
-    },
     '.emmet-wrap-with-abbreviation__content': {
         background: '#fff',
-        margin: '0 auto',
         padding: '5px',
         boxSizing: 'border-box',
-        width: '100%',
-        maxWidth: '30em',
-        borderBottomLeftRadius: '5px',
-        borderBottomRightRadius: '5px',
-        boxShadow: '0 3px 10px rgba(0, 0, 0, 0.3)',
     },
     '.emmet-wrap-with-abbreviation__content input': {
         width: '100%',
@@ -78,120 +67,95 @@ const enterWrapWithAbbreviation: StateCommand = ({ state, dispatch }) => {
     return false;
 }
 
-const wrapWithAbbreviationPlugin = ViewPlugin.fromClass(class WrapWithAbbreviationViewPlugin {
-    private widget: HTMLElement | null = null;
-    private input: HTMLInputElement | null = null;
+function createWrapInputPanel(view: EditorView): Panel {
+    const content = document.createElement('div');
+    content.className = 'emmet-wrap-with-abbreviation__content';
 
-    update(update: ViewUpdate) {
-        const { state, view } = update;
-        const abbr = state.field(wrapAbbreviationField);
-        if (abbr) {
-            if (!this.widget) {
-                this.createInputPanel(view);
-            }
-            this.updateAbbreviation(abbr.abbreviation);
-        } else if (this.widget) {
-            this.disposeWidget();
-            view.focus();
+    const input = document.createElement('input');
+    input.placeholder = 'Enter abbreviation';
+
+    let updated = false;
+
+    const undoUpdate = () => {
+        if (updated) {
+            undo(view);
+            updated = false;
         }
-    }
+    };
 
-    // TODO use @codemirror/panel instead
-    private createInputPanel(view: EditorView) {
-        const widget = document.createElement('div');
-        widget.className = 'emmet-wrap-with-abbreviation';
+    input.addEventListener('input', () => {
+        const abbr = view.state.field(wrapAbbreviationField);
+        if (abbr) {
+            const nextAbbreviation = input.value;
+            undoUpdate();
 
-        const content = document.createElement('div');
-        content.className = 'emmet-wrap-with-abbreviation__content';
+            const nextAbbr: WrapAbbreviation = {
+                ...abbr,
+                abbreviation: nextAbbreviation
+            };
 
-        const input = document.createElement('input');
-        input.placeholder = 'Enter abbreviation';
+            if (nextAbbr.abbreviation) {
+                updated = true;
+                const { from, to } = nextAbbr.range;
+                const expanded = expand(view.state, nextAbbr.abbreviation, nextAbbr.options);
+                const { ranges, snippet } = getSelectionsFromSnippet(expanded, from);
+                const nextSel = ranges[0];
 
-        let updated = false;
-
-        const undoUpdate = () => {
-            if (updated) {
-                undo(view);
-                updated = false;
-            }
-        };
-
-        input.addEventListener('input', () => {
-            const abbr = view.state.field(wrapAbbreviationField);
-            if (abbr) {
-                const nextAbbreviation = input.value;
-                undoUpdate();
-
-                const nextAbbr: WrapAbbreviation = {
-                    ...abbr,
-                    abbreviation: nextAbbreviation
-                };
-
-                if (nextAbbr.abbreviation) {
-                    updated = true;
-                    const { from, to } = nextAbbr.range;
-                    const expanded = expand(view.state, nextAbbr.abbreviation, nextAbbr.options);
-                    const { ranges, snippet } = getSelectionsFromSnippet(expanded, from);
-                    const nextSel = ranges[0];
-
-                    view.dispatch({
-                        effects: [updateAbbreviation.of(nextAbbr)],
-                        changes: [{
-                            from,
-                            to,
-                            insert: snippet
-                        }],
-                        selection: {
-                            head: nextSel.from,
-                            anchor: nextSel.to
-                        }
-                    });
-                } else {
-                    view.dispatch({
-                        effects: [updateAbbreviation.of(nextAbbr)],
-                    });
-                }
-            }
-        });
-
-        input.addEventListener('keydown', evt => {
-            if (evt.key === 'Escape' || evt.key === 'Enter') {
-                if (evt.key === 'Escape') {
-                    undoUpdate();
-                }
-                evt.preventDefault();
                 view.dispatch({
-                    effects: [updateAbbreviation.of(null)]
+                    effects: [updateAbbreviation.of(nextAbbr)],
+                    changes: [{
+                        from,
+                        to,
+                        insert: snippet
+                    }],
+                    selection: {
+                        head: nextSel.from,
+                        anchor: nextSel.to
+                    }
+                });
+            } else {
+                view.dispatch({
+                    effects: [updateAbbreviation.of(nextAbbr)],
                 });
             }
-        });
-
-        content.append(input)
-        widget.append(content);
-        view.dom.append(widget);
-        this.widget = widget;
-        this.input = input;
-        input.focus();
-    }
-
-    private updateAbbreviation(value: string) {
-        if (this.input && this.input.value !== value) {
-            this.input.value = value;
         }
-    }
+    });
 
-    private disposeWidget() {
-        if (this.widget) {
-            this.widget.remove();
-            this.widget = this.input = null;
+    input.addEventListener('keydown', evt => {
+        if (evt.key === 'Escape' || evt.key === 'Enter') {
+            if (evt.key === 'Escape') {
+                undoUpdate();
+            }
+            evt.preventDefault();
+            view.dispatch({
+                effects: [updateAbbreviation.of(null)]
+            });
         }
-    }
-});
+    });
+
+    content.append(input);
+
+    return {
+        top: true,
+        dom: content,
+        mount() {
+            input.focus();
+        },
+        update(update: ViewUpdate) {
+            const abbr = update.state.field(wrapAbbreviationField);
+            if (abbr && input.value !== abbr.abbreviation) {
+                input.value = abbr.abbreviation;
+            }
+        },
+        destroy() {
+            view.focus();
+        }
+    };
+}
 
 export function wrapWithAbbreviation(key = 'Ctrl-w'): Extension[] {
     return [
         wrapAbbreviationField,
-        wrapWithAbbreviationPlugin,
         wrapTheme,
         keymap.of([{
             key,
