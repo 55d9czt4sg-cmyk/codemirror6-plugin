@@ -202,8 +202,16 @@ def init_skill(skill_name, path):
     Returns:
         Path to created skill directory, or None if error
     """
-    # Determine skill directory path
-    skill_dir = Path(path).resolve() / skill_name
+    import re
+    if not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', skill_name):
+        print(f"❌ Error: skill name must be kebab-case (lowercase letters, digits, hyphens only): {skill_name!r}")
+        return None
+
+    base = Path(path).resolve()
+    skill_dir = base / skill_name
+    if not str(skill_dir).startswith(str(base)):
+        print(f"❌ Error: skill name escapes base directory: {skill_name!r}")
+        return None
 
     # Check if directory already exists
     if skill_dir.exists():
