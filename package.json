@@ -17,7 +17,9 @@
     "vite": "^5.3.5"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.78.0",
     "@emmetio/math-expression": "^1.0.5",
+    "composio-core": "^0.5.39",
     "emmet": "^2.4.11"
   },
   "peerDependencies": {
