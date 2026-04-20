@@ -21,22 +21,25 @@ The demo runs at **http://localhost:3009** and hot-reloads on file changes.
 
 ## Default keybindings in the demo
 
+These match the keymap in `src/main.ts`:
+
 | Key | Command |
 |---|---|
-| `Tab` | `expandAbbreviation` |
-| `Ctrl-,` | `balanceOutward` |
-| `Ctrl-.` | `balanceInward` |
+| `Cmd-e` | `expandAbbreviation` |
+| `Cmd-Shift-e` | `enterAbbreviationMode` |
+| `Cmd-Shift-d` | `balanceOutward` |
 | `Ctrl-/` | `toggleComment` |
-| `Ctrl-'` | `evaluateMath` |
-| `Ctrl-Up` / `Ctrl-Down` | `goToNextEditPoint` / `goToPreviousEditPoint` |
-| `Ctrl-Alt-j` | `goToTagPair` |
-| `Alt-Up` / `Alt-Down` | `incrementNumber1` / `decrementNumber1` |
-| `Ctrl-Alt-Up` / `Ctrl-Alt-Down` | `incrementNumber10` / `decrementNumber10` |
-| `Alt-Shift-Up` / `Alt-Shift-Down` | `incrementNumber01` / `decrementNumber01` |
-| `Ctrl-k` | `removeTag` |
-| `Ctrl-Shift-.` / `Ctrl-Shift-,` | `selectNextItem` / `selectPreviousItem` |
+| `Ctrl-y` | `evaluateMath` |
+| `Ctrl-Alt-ArrowLeft` / `Ctrl-Alt-ArrowRight` | `goToPreviousEditPoint` / `goToNextEditPoint` |
+| `Ctrl-g` | `goToTagPair` |
+| `Ctrl-Alt-ArrowUp` / `Ctrl-Alt-ArrowDown` | `incrementNumber1` / `decrementNumber1` |
+| `Ctrl-'` | `removeTag` |
 | `Ctrl-Shift-'` | `splitJoinTag` |
-| `Ctrl-Shift-a` | `wrapWithAbbreviation` |
+| `Ctrl-.` / `Ctrl-,` | `selectNextItem` / `selectPreviousItem` |
+
+`wrapWithAbbreviation` is registered as an extension (not a keymap entry) — it uses its own internal keybinding.
+
+Commands not bound in the demo: `balanceInward`, `incrementNumber01/10`, `decrementNumber01/10`.
 
 ## Tips
 
