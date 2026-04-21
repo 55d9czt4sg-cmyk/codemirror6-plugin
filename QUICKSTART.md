@@ -106,7 +106,7 @@ Import any command and bind it to a key:
 | --- | --- |
 | `expandAbbreviation` | Expand abbreviation at caret |
 | `enterAbbreviationMode` | Enter interactive abbreviation mode |
-| `wrapWithAbbreviation` | Wrap selection with abbreviation |
+| `wrapWithAbbreviation(key?)` | **Extension factory** — add to `extensions`, not `keymap`. Accepts an optional key string (default `Ctrl-w`): `wrapWithAbbreviation('Ctrl-w')` |
 | `balanceOutward` / `balanceInward` | Select enclosing / inner tag |
 | `toggleComment` | Toggle comment on selection |
 | `evaluateMath` | Evaluate math expression in place |
