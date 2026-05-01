@@ -1,0 +1,77 @@
+{
+  "name": "vscode-emmet-extended",
+  "displayName": "Emmet Extended",
+  "description": "Extended Emmet commands missing from VS Code's built-in Emmet (balance, evaluate math, go to edit point, go to tag pair, number increment/decrement, remove tag, select item, split/join tag, wrap with abbreviation)",
+  "version": "0.1.0",
+  "publisher": "emmetio",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": ["Other"],
+  "activationEvents": [
+    "onLanguage:html",
+    "onLanguage:css",
+    "onLanguage:scss",
+    "onLanguage:less",
+    "onLanguage:javascriptreact",
+    "onLanguage:typescriptreact",
+    "onLanguage:xml",
+    "onLanguage:vue"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      { "command": "emmet.balanceOutward",        "title": "Emmet: Balance (Outward)"          },
+      { "command": "emmet.balanceInward",         "title": "Emmet: Balance (Inward)"           },
+      { "command": "emmet.evaluateMath",          "title": "Emmet: Evaluate Math Expression"   },
+      { "command": "emmet.goToNextEditPoint",     "title": "Emmet: Go to Next Edit Point"      },
+      { "command": "emmet.goToPreviousEditPoint", "title": "Emmet: Go to Previous Edit Point"  },
+      { "command": "emmet.goToTagPair",           "title": "Emmet: Go to Matching Tag Pair"    },
+      { "command": "emmet.incrementNumber1",      "title": "Emmet: Increment Number by 1"      },
+      { "command": "emmet.decrementNumber1",      "title": "Emmet: Decrement Number by 1"      },
+      { "command": "emmet.incrementNumber01",     "title": "Emmet: Increment Number by 0.1"    },
+      { "command": "emmet.decrementNumber01",     "title": "Emmet: Decrement Number by 0.1"    },
+      { "command": "emmet.incrementNumber10",     "title": "Emmet: Increment Number by 10"     },
+      { "command": "emmet.decrementNumber10",     "title": "Emmet: Decrement Number by 10"     },
+      { "command": "emmet.removeTag",             "title": "Emmet: Remove Tag"                 },
+      { "command": "emmet.selectNextItem",        "title": "Emmet: Select Next Item"           },
+      { "command": "emmet.selectPreviousItem",    "title": "Emmet: Select Previous Item"       },
+      { "command": "emmet.splitJoinTag",          "title": "Emmet: Split/Join Tag"             },
+      { "command": "emmet.wrapWithAbbreviation",  "title": "Emmet: Wrap with Abbreviation"     }
+    ],
+    "keybindings": [
+      { "command": "emmet.balanceOutward",        "key": "ctrl+shift+d",     "mac": "cmd+shift+d",     "when": "editorTextFocus" },
+      { "command": "emmet.balanceInward",         "key": "ctrl+shift+alt+d", "mac": "cmd+shift+alt+d", "when": "editorTextFocus" },
+      { "command": "emmet.goToNextEditPoint",     "key": "ctrl+alt+right",   "mac": "cmd+alt+right",   "when": "editorTextFocus" },
+      { "command": "emmet.goToPreviousEditPoint", "key": "ctrl+alt+left",    "mac": "cmd+alt+left",    "when": "editorTextFocus" },
+      { "command": "emmet.goToTagPair",           "key": "ctrl+shift+t",     "mac": "cmd+shift+t",     "when": "editorTextFocus" },
+      { "command": "emmet.incrementNumber1",      "key": "ctrl+up",          "mac": "cmd+up",          "when": "editorTextFocus" },
+      { "command": "emmet.decrementNumber1",      "key": "ctrl+down",        "mac": "cmd+down",        "when": "editorTextFocus" },
+      { "command": "emmet.incrementNumber01",     "key": "ctrl+alt+up",      "mac": "cmd+alt+up",      "when": "editorTextFocus" },
+      { "command": "emmet.decrementNumber01",     "key": "ctrl+alt+down",    "mac": "cmd+alt+down",    "when": "editorTextFocus" },
+      { "command": "emmet.incrementNumber10",     "key": "ctrl+shift+up",    "mac": "cmd+shift+up",    "when": "editorTextFocus" },
+      { "command": "emmet.decrementNumber10",     "key": "ctrl+shift+down",  "mac": "cmd+shift+down",  "when": "editorTextFocus" },
+      { "command": "emmet.wrapWithAbbreviation",  "key": "ctrl+shift+g",     "mac": "cmd+shift+g",     "when": "editorTextFocus" },
+      { "command": "emmet.splitJoinTag",          "key": "ctrl+shift+`",     "mac": "cmd+shift+`",     "when": "editorTextFocus" },
+      { "command": "emmet.removeTag",             "key": "ctrl+shift+;",     "mac": "cmd+shift+;",     "when": "editorTextFocus" },
+      { "command": "emmet.evaluateMath",          "key": "ctrl+shift+y",     "mac": "cmd+shift+y",     "when": "editorTextFocus" }
+    ]
+  },
+  "scripts": {
+    "compile": "node esbuild.config.js",
+    "watch": "node esbuild.config.js --watch",
+    "package": "npx @vscode/vsce package",
+    "publish": "npx @vscode/vsce publish"
+  },
+  "dependencies": {
+    "emmet": "^2.4.11",
+    "@emmetio/math-expression": "^1.0.5"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^2.24.0",
+    "esbuild": "^0.21.0",
+    "typescript": "^5.5.4"
+  }
+}
