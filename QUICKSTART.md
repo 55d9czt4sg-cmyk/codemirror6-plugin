@@ -176,6 +176,41 @@ const view = new EditorView({
 
 ## What's next?
 
-- **Full API reference** — see [README.md](./README.md) for all options and syntax details.
-- **Emmet syntax** — learn abbreviation syntax at [docs.emmet.io](https://docs.emmet.io).
-- **CodeMirror extensions guide** — understand how extensions compose at [codemirror.net/docs/guide](https://codemirror.net/docs/guide/).
+<table>
+<tr>
+<td width="50%" valign="top">
+
+### 📖 Full API reference
+All options, facets, and config values for the plugin.
+
+[Read README.md →](./README.md)
+
+</td>
+<td width="50%" valign="top">
+
+### ⚡ Emmet syntax
+Master abbreviations — nesting, multiplication, attributes, and more.
+
+[docs.emmet.io →](https://docs.emmet.io)
+
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+
+### 🧩 CodeMirror extensions guide
+Understand how extensions, facets, and state fields compose.
+
+[codemirror.net/docs/guide →](https://codemirror.net/docs/guide/)
+
+</td>
+<td width="50%" valign="top">
+
+### 🎬 Available commands
+The full list of Emmet actions you can bind — balance, wrap, increment, and more.
+
+[Jump to commands →](./README.md#available-commands)
+
+</td>
+</tr>
+</table>
