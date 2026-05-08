@@ -1,3 +1,5 @@
 {
-  "command": "/Users/billy/.nvm/versions/node/v22.11.0/bin/node"
+  "env": {
+    "NODE": "/Users/billy/.nvm/versions/node/v22.11.0/bin/node"
+  }
 }
