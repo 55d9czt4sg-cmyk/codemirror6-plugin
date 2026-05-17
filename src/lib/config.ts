@@ -1,6 +1,6 @@
 import type { GlobalConfig } from 'emmet';
 import { EditorState, type Extension, Facet } from '@codemirror/state';
-import { resetCache } from './emmet';
+import { resetCache } from './cache';
 import { EmmetKnownSyntax } from './types';
 
 export interface EmmetEditorOptions {

@@ -7,6 +7,7 @@ import { syntaxInfo, getMarkupAbbreviationContext, getStylesheetAbbreviationCont
 import { getTagAttributes, substr } from './utils';
 import getEmmetConfig from './config';
 import getOutputOptions, { field } from './output';
+import { getCache } from './cache';
 import { EmmetKnownSyntax, type ContextTag } from './types';
 
 export interface ExtractedAbbreviationWithContext extends ExtractedAbbreviation {
@@ -14,19 +15,13 @@ export interface ExtractedAbbreviationWithContext extends ExtractedAbbreviation 
     inline?: boolean;
 }
 
-/**
- * Cache for storing internal Emmet data.
- * TODO reset whenever user settings are changed
- */
-let cache = {};
-
 export const JSX_PREFIX = '<';
 
 /**
  * Expands given abbreviation into code snippet
  */
 export function expand(state: EditorState, abbr: string | MarkupAbbreviation | StylesheetAbbreviation, config?: UserConfig) {
-    let opt: UserConfig = { cache };
+    let opt: UserConfig = { cache: getCache() };
     const outputOpt: Partial<Options> = {
         'output.field': field,
     };
@@ -136,6 +131,4 @@ export function getOptions(state: EditorState, pos: number): UserConfig {
     return config;
 }
 
-export function resetCache() {
-    cache = {};
-}
+export { resetCache } from './cache';
