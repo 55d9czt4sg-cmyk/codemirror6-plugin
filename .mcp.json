@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "notion": {
+      "type": "http",
+      "url": "https://link.mcpmarket.com/yankeezz2828/notion/mcp"
+    }
+  }
+}
