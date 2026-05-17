@@ -8,13 +8,18 @@
     "dev": "vite --port=3009",
     "build": "vite build && tsc",
     "serve": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "coverage": "vitest run --coverage",
     "prepare": "npm run build"
   },
   "devDependencies": {
     "@lezer/common": "^1.2.1",
+    "@vitest/coverage-v8": "^2.1.9",
     "codemirror": "^6.0.1",
     "typescript": "^5.5.4",
-    "vite": "^5.3.5"
+    "vite": "^5.3.5",
+    "vitest": "^2.1.9"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.78.0",

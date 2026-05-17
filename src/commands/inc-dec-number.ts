@@ -48,7 +48,7 @@ function incDecNumber({ state, dispatch }: StateCommandTarget, delta: number): b
 /**
  * Extracts number from text at given location
  */
-function extractNumber(text: string, pos: number): [number, number] | undefined {
+export function extractNumber(text: string, pos: number): [number, number] | undefined {
     let hasDot = false;
     let end = pos;
     let start = pos;
@@ -95,7 +95,7 @@ function extractNumber(text: string, pos: number): [number, number] | undefined 
     return;
 }
 
-function updateNumber(num: string, delta: number, precision = 3): string {
+export function updateNumber(num: string, delta: number, precision = 3): string {
     const value = parseFloat(num) + delta;
 
     if (isNaN(value)) {
